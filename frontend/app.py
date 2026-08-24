@@ -10,9 +10,16 @@ from typing import Any
 import pandas as pd
 import requests
 import streamlit as st
+from dotenv import load_dotenv
 
 # Import the backend package when running from the repo root (Streamlit Cloud).
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(_ROOT))
+
+# Load .env here as well as in backend.config: the login gate reads the password
+# before anything imports the backend, so without this a local run with a
+# password set in .env would sit wide open while appearing to be protected.
+load_dotenv(_ROOT / ".env")
 
 # Two ways to reach the backend:
 #   API_BASE set   -> talk to a running FastAPI server over HTTP (local dev)
