@@ -80,17 +80,31 @@ def get_updates() -> dict[str, Any]:
 
 
 def discover_chat_ids() -> list[dict[str, Any]]:
+    """Find the id of any chat this bot can see.
+
+    Bots default to privacy mode, meaning they never receive ordinary group
+    messages - only commands, replies and mentions. So looking at `message`
+    alone often finds nothing even when the bot is sitting in the group. The
+    `my_chat_member` update, sent when the bot is added or removed, carries the
+    chat id regardless of privacy mode and is usually the one that works.
+    """
     data = get_updates()
     if not data.get("ok"):
         return []
+
     seen: dict[str, dict[str, Any]] = {}
     for update in data.get("result", []):
-        msg = update.get("message") or update.get("channel_post") or {}
-        chat = msg.get("chat") or {}
-        if chat.get("id") is not None:
+        for key in ("message", "channel_post", "edited_message", "my_chat_member"):
+            payload = update.get(key)
+            if not payload:
+                continue
+            chat = payload.get("chat") or {}
+            if chat.get("id") is None:
+                continue
             seen[str(chat["id"])] = {
                 "chat_id": str(chat["id"]),
                 "type": chat.get("type"),
                 "title": chat.get("title") or chat.get("username") or chat.get("first_name"),
+                "found_via": key,
             }
     return list(seen.values())
