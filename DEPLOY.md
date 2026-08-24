@@ -75,22 +75,10 @@ Your committee URL will look like
 
 ## 3. Scheduled crawl and alerts (GitHub Actions) — 5 min
 
-The workflow file is in your local folder but **is not pushed yet** — the GitHub
-token that created the repo lacks the `workflow` permission. Grant it once:
+The workflow is already in the repo and active — you only need to give it the
+settings it runs with.
 
-```powershell
-gh auth refresh -h github.com -s workflow
-```
-
-That opens a browser to approve. Then, from the project folder:
-
-```powershell
-git add .github/workflows/scheduled-jobs.yml
-git commit -m "Add scheduled crawl and digest workflow"
-git push
-```
-
-Then in the repo on GitHub → **Settings → Secrets and variables → Actions**:
+In the repo on GitHub → **Settings → Secrets and variables → Actions**:
 
 **Secrets** (the sensitive ones):
 
