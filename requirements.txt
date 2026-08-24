@@ -1,0 +1,18 @@
+fastapi
+uvicorn[standard]
+streamlit
+requests
+httpx
+pydantic
+python-dotenv
+apscheduler
+pandas
+
+# Postgres driver. Only used when DATABASE_URL is set (hosted deployments);
+# local runs fall back to SQLite and never import it.
+psycopg[binary]
+
+# LLM providers (pluggable). Gemini is the default; anthropic is only imported
+# when LLM_PROVIDER=claude.
+google-genai
+anthropic

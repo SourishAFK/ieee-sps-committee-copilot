@@ -1,0 +1,113 @@
+{
+  "_note": "Sister IEEE societies/councils a Signal Processing Society chapter most often co-hosts with. `overlap` lists the shared technical ground, `joint_formats` lists event shapes that have precedent, `pitch_angle` is the argument that usually wins their chapter over.",
+  "societies": [
+    {
+      "id": "comsoc",
+      "name": "IEEE Communications Society",
+      "abbr": "ComSoc",
+      "overlap": ["wireless signal processing", "MIMO", "channel estimation", "5G/6G PHY", "semantic communications", "joint sensing and communication"],
+      "joint_formats": ["workshop", "tutorial series", "hackathon", "industry panel"],
+      "pitch_angle": "ISAC (integrated sensing and communication) is the live shared frontier - both societies claim it, so a joint event avoids a turf argument and doubles the speaker pool.",
+      "strength": "high"
+    },
+    {
+      "id": "embs",
+      "name": "IEEE Engineering in Medicine and Biology Society",
+      "abbr": "EMBS",
+      "overlap": ["biomedical imaging", "EEG/ECG signal analysis", "medical image segmentation", "wearable sensing", "computational health"],
+      "joint_formats": ["workshop", "datathon", "hospital-partnered project showcase", "seasonal school"],
+      "pitch_angle": "Biomedical signal processing needs clinicians in the room. EMBS brings the clinical partner and the dataset; SPS brings the methods. Also the easiest joint event to attract non-engineering attendees to.",
+      "strength": "high"
+    },
+    {
+      "id": "cis",
+      "name": "IEEE Computational Intelligence Society",
+      "abbr": "CIS",
+      "overlap": ["deep learning", "neural architectures", "explainability", "optimisation", "fuzzy systems"],
+      "joint_formats": ["hackathon", "paper-writing bootcamp", "competition", "tutorial series"],
+      "pitch_angle": "Nearly every modern SPS paper uses learned models. CIS chapters usually have the ML speaker bench; SPS supplies the application domains and the data.",
+      "strength": "high"
+    },
+    {
+      "id": "cas",
+      "name": "IEEE Circuits and Systems Society",
+      "abbr": "CAS",
+      "overlap": ["hardware for DSP", "FPGA implementation", "edge AI accelerators", "VLSI signal processing", "low-power design"],
+      "joint_formats": ["hands-on lab", "FPGA workshop", "design contest"],
+      "pitch_angle": "Implementation-flavoured events. CAS covers the silicon, SPS the algorithm. Strong with electronics-heavy student bodies and easy to run as a hardware lab.",
+      "strength": "high"
+    },
+    {
+      "id": "computer",
+      "name": "IEEE Computer Society",
+      "abbr": "CS",
+      "overlap": ["computer vision", "multimedia systems", "pattern recognition", "software for scientific computing"],
+      "joint_formats": ["hackathon", "coding bootcamp", "CV workshop", "project expo"],
+      "pitch_angle": "Largest student membership on most campuses - partner with them when the goal is turnout rather than technical depth.",
+      "strength": "high"
+    },
+    {
+      "id": "ras",
+      "name": "IEEE Robotics and Automation Society",
+      "abbr": "RAS",
+      "overlap": ["sensor fusion", "SLAM", "perception", "control and estimation", "audio-visual navigation"],
+      "joint_formats": ["robotics workshop", "competition", "demo day", "seasonal school"],
+      "pitch_angle": "Perception is signal processing wearing a robot. Highly demo-able, which makes it the best joint format for public-facing or open-day events.",
+      "strength": "medium"
+    },
+    {
+      "id": "grss",
+      "name": "IEEE Geoscience and Remote Sensing Society",
+      "abbr": "GRSS",
+      "overlap": ["SAR", "hyperspectral imaging", "satellite image analysis", "earth observation"],
+      "joint_formats": ["data challenge", "workshop", "field-data bootcamp"],
+      "pitch_angle": "GRSS runs generous open-data challenges and has strong India-region activity through ISRO-adjacent collaborations.",
+      "strength": "medium"
+    },
+    {
+      "id": "its",
+      "name": "IEEE Information Theory Society",
+      "abbr": "ITSoc",
+      "overlap": ["coding theory", "compressed sensing", "estimation bounds", "source coding"],
+      "joint_formats": ["lecture series", "reading group", "school"],
+      "pitch_angle": "Theory-heavy, small but high-prestige audiences. Best as a distinguished lecture rather than a mass event.",
+      "strength": "medium"
+    },
+    {
+      "id": "sensors",
+      "name": "IEEE Sensors Council",
+      "abbr": "Sensors",
+      "overlap": ["sensor arrays", "IoT signal acquisition", "calibration", "condition monitoring"],
+      "joint_formats": ["hands-on IoT lab", "industry visit", "workshop"],
+      "pitch_angle": "Councils are often looking for chapters to co-run activities and can be easier to get sponsorship from than large societies.",
+      "strength": "medium"
+    },
+    {
+      "id": "wie",
+      "name": "IEEE Women in Engineering",
+      "abbr": "WIE",
+      "overlap": ["diversity in STEM", "career development", "mentorship"],
+      "joint_formats": ["panel", "mentorship programme", "keynote", "networking evening"],
+      "pitch_angle": "Co-hosting with WIE materially improves reporting metrics and is viewed favourably in Section awards. Pair a technical SPS talk with a WIE career panel in one evening.",
+      "strength": "high"
+    },
+    {
+      "id": "yp",
+      "name": "IEEE Young Professionals",
+      "abbr": "YP",
+      "overlap": ["career transition", "industry exposure", "entrepreneurship"],
+      "joint_formats": ["industry panel", "startup pitch night", "alumni talk"],
+      "pitch_angle": "YP brings recent-graduate speakers who are cheap to host and relatable to students. Good bridge to industry sponsorship.",
+      "strength": "medium"
+    },
+    {
+      "id": "pes",
+      "name": "IEEE Power & Energy Society",
+      "abbr": "PES",
+      "overlap": ["power quality analysis", "grid signal monitoring", "fault detection", "smart metering"],
+      "joint_formats": ["workshop", "industry visit", "case-study seminar"],
+      "pitch_angle": "Underused pairing. Grid fault detection is a genuine signal processing problem and PES chapters are usually well funded.",
+      "strength": "low"
+    }
+  ]
+}
