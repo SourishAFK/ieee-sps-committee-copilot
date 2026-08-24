@@ -139,6 +139,7 @@ def health() -> dict[str, Any]:
         "institution": settings.chapter.institution,
         "llm": llm.status(),
         "notify": digest.channel_status(),
+        "database": store.backend_info(),
         "stats": store.stats(),
         "knowledge": knowledge.corpus_stats(),
         "scheduler": scheduler.status(),

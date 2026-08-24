@@ -231,6 +231,23 @@ def init() -> None:
     _conn()
 
 
+def backend_info() -> dict[str, Any]:
+    """Which database is actually in use.
+
+    Worth surfacing in the UI: if DATABASE_URL is missing or malformed on a
+    hosted deployment, everything silently falls back to a file on a disposable
+    disk and looks completely healthy right up until the data disappears.
+    """
+    if IS_PG:
+        host = DATABASE_URL.split("@")[-1].split("/")[0] if "@" in DATABASE_URL else "configured"
+        return {"engine": "postgres", "location": host, "persistent": True}
+    return {
+        "engine": "sqlite",
+        "location": str(settings.db_path.name),
+        "persistent": False,
+    }
+
+
 def now() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
 

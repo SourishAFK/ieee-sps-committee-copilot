@@ -901,6 +901,23 @@ elif page == "Activity report":
 elif page == "Settings":
     st.title("Settings and operations")
 
+    db = health.get("database") or {}
+    st.subheader("Where the data is stored")
+    if db.get("persistent"):
+        st.success(
+            f"**Postgres** at `{db.get('location')}` - data is permanent and shared "
+            "across everyone using this link."
+        )
+    else:
+        st.error(
+            f"**SQLite file** (`{db.get('location')}`) - data is NOT permanent on a hosted "
+            "deployment.\n\n"
+            "That is correct when running on your own laptop. If you are seeing this on the "
+            "shared link, `DATABASE_URL` is missing or misspelled in the Streamlit secrets, "
+            "and everything logged here will be wiped the next time the app restarts. "
+            "Fix that before the committee starts using it."
+        )
+
     cfg = api_get("/config") or {"chapter": {}}
     st.subheader("Chapter profile")
     st.caption("Edit these in the `.env` file, then restart the backend.")
