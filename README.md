@@ -68,6 +68,15 @@ project. Produces a Markdown report and a CSV for pasting into IEEE reporting fo
 
 ---
 
+## Deploying it for a committee
+
+See **[DEPLOY.md](DEPLOY.md)** — free Postgres (Neon) + Streamlit Community Cloud +
+a GitHub Actions cron, about 20 minutes. The scheduled crawl runs in CI because a
+free-tier hosted UI sleeps when nobody is looking at it, which would silently stop
+the alerts.
+
+Committee-facing instructions in plain language are a separate one-page guide.
+
 ## Quick start
 
 ```powershell

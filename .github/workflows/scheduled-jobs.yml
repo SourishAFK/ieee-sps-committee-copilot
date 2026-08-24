@@ -1,0 +1,75 @@
+# Runs the crawl and digest on a schedule.
+#
+# The Streamlit app sleeps when nobody is using it, so its in-process scheduler
+# cannot be relied on. GitHub Actions runs these instead, writing to the same
+# Postgres database the UI reads.
+name: Scheduled jobs
+
+on:
+  schedule:
+    # 01:30 UTC daily = 07:00 IST. Crawl sources and push new opportunities.
+    - cron: "30 1 * * *"
+    # 03:45 UTC Monday = 09:15 IST. Weekly committee digest.
+    - cron: "45 3 * * 1"
+  workflow_dispatch:
+    inputs:
+      job:
+        description: "Which job to run"
+        required: true
+        default: crawl
+        type: choice
+        options: [crawl, digest, knowledge, status]
+
+concurrency:
+  group: sps-scheduled
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      SMTP_HOST: ${{ secrets.SMTP_HOST }}
+      SMTP_PORT: ${{ secrets.SMTP_PORT }}
+      SMTP_USER: ${{ secrets.SMTP_USER }}
+      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+      DIGEST_TO: ${{ secrets.DIGEST_TO }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      CHAPTER_NAME: ${{ vars.CHAPTER_NAME }}
+      INSTITUTION: ${{ vars.INSTITUTION }}
+      CITY: ${{ vars.CITY }}
+      COUNTRY: ${{ vars.COUNTRY }}
+      IEEE_SECTION: ${{ vars.IEEE_SECTION }}
+      CHAIR_NAME: ${{ vars.CHAIR_NAME }}
+      CHAIR_EMAIL: ${{ vars.CHAIR_EMAIL }}
+      VENUE_CAPACITY: ${{ vars.VENUE_CAPACITY }}
+      ALERT_THRESHOLD: ${{ vars.ALERT_THRESHOLD }}
+      ENABLE_SCHEDULER: "0"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Pick the job
+        id: pick
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "job=${{ inputs.job }}" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event.schedule }}" = "45 3 * * 1" ]; then
+            echo "job=digest" >> "$GITHUB_OUTPUT"
+          else
+            echo "job=crawl" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run ${{ steps.pick.outputs.job }}
+        run: python -m backend.tasks ${{ steps.pick.outputs.job }}
