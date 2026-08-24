@@ -62,6 +62,14 @@ def cmd_knowledge() -> int:
 
 def cmd_status() -> int:
     store.init()
+    db = store.backend_info()
+    _print("database", db)
+    if not db["persistent"]:
+        print(
+            "\nWARNING: running against a local SQLite file, not the shared database.\n"
+            "         DATABASE_URL is unset or misspelled, so this job is writing\n"
+            "         somewhere the app will never read. Check the repository secret.\n"
+        )
     _print("stats", store.stats())
     _print("knowledge", knowledge.corpus_stats())
     _print("channels", digest.channel_status())

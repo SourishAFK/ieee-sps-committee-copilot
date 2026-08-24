@@ -42,6 +42,7 @@ jobs:
       INSTITUTION: ${{ vars.INSTITUTION }}
       CITY: ${{ vars.CITY }}
       COUNTRY: ${{ vars.COUNTRY }}
+      IEEE_REGION: ${{ vars.IEEE_REGION }}
       IEEE_SECTION: ${{ vars.IEEE_SECTION }}
       CHAIR_NAME: ${{ vars.CHAIR_NAME }}
       CHAIR_EMAIL: ${{ vars.CHAIR_EMAIL }}

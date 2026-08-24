@@ -83,23 +83,56 @@ settings it runs with.
 
 In the repo on GitHub → **Settings → Secrets and variables → Actions**:
 
-**Secrets** (the sensitive ones):
+> **Each row below is its own separate entry.** Press *New repository secret* (or
+> *New variable*) once per row and type the **Name** exactly as written — the
+> workflow looks these names up literally, so `DATABASE_URL` works and anything
+> else is ignored in silence.
+
+**Secrets tab** — only one is required:
+
+| Name | Value | Required |
+|---|---|---|
+| `DATABASE_URL` | your Neon connection string | **yes** |
+| `TELEGRAM_BOT_TOKEN` | from @BotFather | no |
+| `TELEGRAM_CHAT_ID` | your committee group id | no |
+| `SMTP_USER` | sending email address | no |
+| `SMTP_PASSWORD` | app password for that address | no |
+| `DIGEST_TO` | who gets the digest, comma separated | no |
+| `GEMINI_API_KEY` | for written feedback | no |
+
+**Variables tab** — nine entries, the same chapter details as your Streamlit secrets:
 
 | Name | Value |
 |---|---|
-| `DATABASE_URL` | the same Neon string |
-| `TELEGRAM_BOT_TOKEN` | from @BotFather, optional |
-| `TELEGRAM_CHAT_ID` | your committee group id, optional |
-| `SMTP_USER` / `SMTP_PASSWORD` / `DIGEST_TO` | for email digests, optional |
-| `GEMINI_API_KEY` | optional |
+| `CHAPTER_NAME` | IEEE Signal Processing Society Student Branch Chapter, MIT Bengaluru |
+| `INSTITUTION` | Manipal Institute of Technology, Bengaluru |
+| `CITY` | Bengaluru |
+| `COUNTRY` | India |
+| `IEEE_REGION` | 10 |
+| `IEEE_SECTION` | IEEE Bangalore Section |
+| `CHAIR_NAME` | Sourish Maheshwari |
+| `CHAIR_EMAIL` | sourishmaheshwari@outlook.com |
+| `VENUE_CAPACITY` | 500 |
+| `ALERT_THRESHOLD` | 70 |
 
-**Variables** (not sensitive) — same chapter details as the Streamlit secrets:
-`CHAPTER_NAME`, `INSTITUTION`, `CITY`, `COUNTRY`, `IEEE_SECTION`, `CHAIR_NAME`,
-`CHAIR_EMAIL`, `VENUE_CAPACITY`, `ALERT_THRESHOLD`.
+### Testing it
 
-Test it: **Actions → Scheduled jobs → Run workflow → `status`**. A green run means
-it reached your database. After that it runs itself: crawl daily at 07:00 IST,
-digest Mondays at 09:15 IST.
+**Actions → Scheduled jobs → Run workflow → pick `status` → Run workflow.**
+
+Green tick is not enough on its own — open the run, expand **Run status**, and read
+the first block:
+
+```
+--- database ---
+{ "engine": "postgres", "location": "ep-xxxx.aws.neon.tech", "persistent": true }
+```
+
+`"engine": "postgres"` means CI reached the same database the app uses. If it says
+`sqlite` the job prints a warning: `DATABASE_URL` is missing or misspelled, and the
+job is writing to a throwaway file the app will never read.
+
+Once `status` is clean, run it again with `crawl` to prove the whole path works.
+After that it runs itself: crawl daily at 07:00 IST, digest Mondays 09:15 IST.
 
 ---
 
