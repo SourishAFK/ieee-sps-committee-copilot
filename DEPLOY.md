@@ -38,31 +38,34 @@ the only reason this step exists.
    - Repository: `SourishAFK/ieee-sps-committee-copilot`
    - Branch: `main`
    - **Main file path: `frontend/app.py`**
-4. Open **Advanced settings → Secrets** and paste this, filling in your values:
+4. Set **Python version** to `3.12`. Newer versions usually work, but 3.12 is the
+   one this project is tested on and the one CI uses.
+5. Open **Advanced settings → Secrets** and paste the block below.
+
+> **Copy the lines only — not the ``` fences.** They are markdown formatting, and
+> Streamlit rejects the whole box with *"Invalid format: please enter valid TOML"*
+> if they come along. Same goes for curly "smart quotes": TOML needs straight `"`.
+> If a browser extension such as Grammarly is active in the box, turn it off first
+> — it can rewrite quote characters as you paste.
 
 ```toml
-DATABASE_URL = "postgresql://...paste from Neon..."
-APP_PASSWORD = "pick-something-and-share-it-with-the-committee"
-
+DATABASE_URL = "postgresql://PASTE-YOUR-NEON-STRING-HERE"
+APP_PASSWORD = "signalProcessingIsNotBoring"
 CHAPTER_NAME = "IEEE Signal Processing Society Student Branch Chapter, MIT Bengaluru"
-INSTITUTION  = "Manipal Institute of Technology, Bengaluru"
-CITY         = "Bengaluru"
-COUNTRY      = "India"
-IEEE_REGION  = "10"
+INSTITUTION = "Manipal Institute of Technology, Bengaluru"
+CITY = "Bengaluru"
+COUNTRY = "India"
+IEEE_REGION = "10"
 IEEE_SECTION = "IEEE Bangalore Section"
-CHAIR_NAME   = "Sourish Maheshwari"
-CHAIR_EMAIL  = "sourishmaheshwari@outlook.com"
+CHAIR_NAME = "Sourish Maheshwari"
+CHAIR_EMAIL = "sourishmaheshwari@outlook.com"
 VENUE_CAPACITY = "500"
-
-# The hosted app sleeps, so CI does the scheduling instead.
 ENABLE_SCHEDULER = "0"
-
-# Optional - written feedback and drafted emails
 GEMINI_API_KEY = ""
 ```
 
-5. **Deploy**. First build takes 3–5 minutes.
-6. Open the app, log in with your `APP_PASSWORD`, go to **Settings → Run a crawl
+6. **Deploy**. First build takes 3–5 minutes.
+7. Open the app, log in with your `APP_PASSWORD`, go to **Settings → Run a crawl
    now**, then **Refresh past-event knowledge**. This fills the fresh database.
 
 Your committee URL will look like
